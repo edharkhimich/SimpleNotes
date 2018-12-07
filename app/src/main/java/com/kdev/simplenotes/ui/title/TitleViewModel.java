@@ -2,6 +2,7 @@ package com.kdev.simplenotes.ui.title;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.kdev.simplenotes.database.AppRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class TitleViewModel extends AndroidViewModel {
 
-    public List<NoteEntity> mNotes;
+    public LiveData<List<NoteEntity>> mNotes;
     private AppRepository mRepository;
 
     public TitleViewModel(@NonNull Application application) {

@@ -1,8 +1,10 @@
 package com.kdev.simplenotes.ui.title;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,18 +49,31 @@ public class TitleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        initViewModel();
         initRecView();
-
-        noteData.addAll(mViewModel.mNotes);
-
+        initViewModel();
 
     }
 
     private void initViewModel() {
+        final Observer<List<NoteEntity>> listObserver =
+                new Observer<List<NoteEntity>>() {
+                    @Override
+                    public void onChanged(@Nullable List<NoteEntity> noteEntities) {
+                        noteData.clear();
+                        noteData.addAll(noteEntities);
+
+                        if(adapter == null){
+                            adapter = new TitleAdapter(noteData);
+                            mRecView.setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                };
+
         mViewModel = ViewModelProviders.of(this)
                 .get(TitleViewModel.class);
-
+        mViewModel.mNotes.observe(this, listObserver);
     }
 
     private void initRecView(){
@@ -66,8 +81,6 @@ public class TitleActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecView.setLayoutManager(linearLayoutManager);
 
-        adapter = new TitleAdapter(noteData);
-        mRecView.setAdapter(adapter);
     }
 
     @Override
