@@ -26,4 +26,8 @@ public class TitleViewModel extends AndroidViewModel {
     public void addSampleData() {
         mRepository.addSampleData();
     }
+
+    public void deleteSampleData() {
+        mRepository.deleteSampleData();
+    }
 }

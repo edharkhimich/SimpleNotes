@@ -96,9 +96,15 @@ public class TitleActivity extends AppCompatActivity {
         if (id == R.id.actionAddSampleData) {
             addSampleData();
             return true;
+        } else if (id == R.id.actionDeleteSampleData) {
+            deleteSampleData();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteSampleData() {
+        mViewModel.deleteSampleData();
     }
 
     private void addSampleData() {

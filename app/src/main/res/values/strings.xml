@@ -92,5 +92,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_add_sample_data">Add sample data</string>
+    <string name="action_delete_sample_data">Delete sample data</string>
     <string name="enter_note">Enter note</string>
 </resources>
